@@ -1,6 +1,5 @@
 {
   "restUrl": "http://date.jsontest.com/",
-  "apiToken": "furz",
-  "monitorId": "5",
-  "alarmPath": "/haha/ja/"
+  "apiToken": "apiToken",
+  "alarmPath": "./"
 }
