@@ -23,8 +23,8 @@ alarmFile = config.alarmPath + ".alarm"
 
 if activeAlarm:
     open(alarmFile, "w")
-    subprocess.call("tv_on.sh")
+    subprocess.call("./tv_on.sh")
 else:
     if os.path.isfile(alarmFile):
         os.remove(alarmFile)
-        subprocess.call("tv_standby.sh")
+        subprocess.call("./tv_standby.sh")
