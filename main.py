@@ -20,11 +20,13 @@ data = json.loads(content)
 activeAlarm = data["activeAlarmsData"]["activeAlarms"] is not None
 
 alarmFile = config.alarmPath + ".alarm"
+isFile = os.path.isfile(alarmFile)
 
 if activeAlarm:
-    open(alarmFile, "w")
-    subprocess.call("./tv_on.sh")
+    if not isFile:
+        open(alarmFile, "w")
+        subprocess.call("./tv_on.sh")
 else:
-    if os.path.isfile(alarmFile):
+    if isFile:
         os.remove(alarmFile)
         subprocess.call("./tv_standby.sh")
