@@ -1,21 +1,20 @@
 import json
-from urllib.request import urlopen, Request
-import urllib.error
 import config
 import os
 import subprocess
+import requests
 
 config = config.load_config()
 
 try:
-    request = Request(config.restUrl)
-    request.add_header('API-TOKEN', config.apiToken)
-    request.add_header('Content-Type', 'application/json')
-    with urlopen(request) as handle:
-        content = handle.read().decode('utf-8')
-except urllib.error.URLError as error:
-    print(error.reason)
-    raise error
+    result = requests.get(config.restUrl, headers={
+        "Content-Type": "application/json", "API-TOKEN": config.apiToken
+    })
+    content = result.content.decode('utf-8')
+except requests.exceptions.HTTPError as e:
+    print(e.response.status_code)
+    print(e.response.raw)
+    raise e
 
 data = json.loads(content)
 activeAlarm = data["activeAlarmsData"]["activeAlarms"] is not None
